@@ -94,10 +94,11 @@ elif options.finger:
           hemtelefon, arbtelefon,
           ppn, anvandarnamn, mailadress, betalt, intradesdatum, uttradesdatum, 
           status, kortnr, xx) = fields + (22-len(fields))*[None]
-        flags = re.split(',\s*', status)
-        
-        if efternamn==u'Efternamn' and fornamn==u'Förnamn' and kortnr==u'Kortnr':
+
+        if (status==None) or (efternamn==u'Efternamn' and fornamn==u'Förnamn' and kortnr==u'Kortnr'):
             continue
+
+        flags = re.split(',\s*', status)
         
         if betalt: betalt = int(betalt)
         else:      betalt = 0
