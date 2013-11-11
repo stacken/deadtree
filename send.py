@@ -129,7 +129,6 @@ elif options.finger:
         if (uttradesdatum
             or ('Slutat' in flags)
             or ('Utesluten' in flags)
-            or ('Fel adress' in flags)
             or ('Ej medlem' in flags)) :
             print u'!!! %s %s lämnade stacken %s (%s)' % (fornamn, efternamn, uttradesdatum, status)
             continue
