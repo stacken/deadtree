@@ -5,6 +5,7 @@ import codecs
 from email.mime.text import MIMEText
 from email.header import Header
 import fileinput
+import datetime
 
 import sys
 #print "stdout:",sys.stdout.encoding,"default:",sys.getdefaultencoding()
@@ -45,10 +46,18 @@ opt.add_option('--subject', dest='subject',
                help='Subject text for the messages')
 opt.add_option('--reply-to', dest='reply_to', metavar='ADDR',
                help='Address for a Reply-to header')
+opt.add_option('--from-email', dest='from_email', metavar='EMAIL', help='Your E-mail adress')
+opt.add_option('--from-name', dest='from_name', metavar='NAME', help='Your Full Name')
 (options, msgfile) = opt.parse_args()
 
 if not options.subject:
     raise Exception, 'A subject is required'
+
+if not options.from_email:
+    raise Exception, 'From E-mail is required'
+
+if not options.from_name:
+    raise Exception, 'From Name is required'
 
 if not msgfile or len(msgfile) != 1:
     raise Exception, 'Exactly one message file is required'
@@ -71,8 +80,8 @@ if options.addressfile:
             pass
         elif m:
             msg = mkmsg(msgfile[0], subject=options.subject,
-                        fromname=u'Datorföreningen Stacken via Stefan Berggren',
-                        fromaddr='<nsg@stacken.kth.se>',
+                        fromname=u'Datorföreningen Stacken via {0}'.format(options.from_name),
+                        fromaddr='<{0}>'.format(options.from_email),
                         toname = m.group(1),
                         toaddrs = [m.group(2)],
                         reply_to = options.reply_to,
@@ -129,8 +138,8 @@ elif options.finger:
             continue
         
         msg = mkmsg(msgfile[0], subject=options.subject,
-                    fromname=u'Datorföreningen Stacken via Stefan Berggren',
-                    fromaddr='<nsg@stacken.kth.se>',
+                    fromname=u'Datorföreningen Stacken via {0}'.format(options.from_name),
+                    fromaddr='<{0}>'.format(options.from_email),
                     toname = u'%s %s' % (fornamn, efternamn),
                     toaddrs = addrs,
                     reply_to = options.reply_to,
@@ -142,10 +151,10 @@ elif options.finger:
 else:
     print 'No addresses.  Sending to myself for debugging.'
     msg = mkmsg(msgfile[0], subject=options.subject,
-                fromname=u'Datorföreningen Stacken via Stefan Berggren',
-                fromaddr='<nsg@stacken.kth.se>',
-                toname = u'Stefan Berggren',
-                toaddrs  = ['<sbergg@kth.se>'],
+                fromname=u'Datorföreningen Stacken via {0}'.format(options.from_name),
+                fromaddr='<{0}>'.format(options.from_email),
+                toname = u'{0}'.format(options.from_name),
+                toaddrs  = ['<{0}>'.format(options.from_email)],
                 reply_to = options.reply_to,
                 smtp = server)
     
