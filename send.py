@@ -65,7 +65,7 @@ if not msgfile or len(msgfile) != 1:
 server = None
 if options.doit:
     print 'Initializing smtp'
-    server = smtplib.SMTP('brev.stacken.kth.se')
+    server = smtplib.SMTP('smtp.stacken.kth.se')
     server.set_debuglevel(0)
 
 if options.addressfile:
