@@ -112,7 +112,7 @@ elif options.finger:
         if betalt: betalt = int(betalt)
         else:      betalt = 0
             
-        if ((betalt < datetime.datetime.now().year - 2)
+        if ((betalt < datetime.datetime.now().year - 3)
             and not ('Ny' in flags)
             and not ('Hedersmedlem' in flags)):
             continue
