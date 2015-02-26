@@ -14,6 +14,8 @@ copy:
 
 gen:
 	./kallelse.bash $$MALL
+	pdftk $$(echo /tmp/out/*.pdf) cat output /tmp/out/$${MALL}-merged.pdf
+	rm /tmp/out/$${MALL}_*
 
 clean:
 	rm -f out/*

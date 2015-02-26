@@ -29,7 +29,6 @@ for line in $(./kallelse.pl | iconv -f iso8859-1 -t utf-8); do
 	echo "Generated $name"
 
 	num=$(( $num + 1 ))
-	break
 done
 unset IFS
 
