@@ -1,5 +1,4 @@
 run: clean build copy
-		mkdir -p out
 		docker run -ti \
 			-v $$PWD/out:/tmp/out \
 			-v $$PWD/mallar:/tmp/mallar \
@@ -9,6 +8,7 @@ build:
 	docker build -t deadtree .
 
 copy:
+	mkdir -p out
 	rm -f out/finger.txt
 	cp /afs/stacken.kth.se/home/stacken/Private/finger.txt out/finger.txt
 
