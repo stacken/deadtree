@@ -1,8 +1,8 @@
 run: clean build copy
-		docker run -ti \
-			-v $$PWD/out:/tmp/out \
-			-v $$PWD/mallar:/tmp/mallar \
-			-e MALL=$$MALL deadtree
+	docker run -ti \
+		-v $$PWD/out:/tmp/out \
+		-v $$PWD/mallar:/tmp/mallar \
+		-e MALL=$$MALL deadtree
 
 build:
 	docker build -t deadtree .
