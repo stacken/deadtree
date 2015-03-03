@@ -9,6 +9,18 @@ field() {
 	echo $line | awk -F'|' "{print \$$1}"
 }
 
+render_co() {
+	echo -n 'c\/o' $(field 2) '\\\\ '
+}
+
+render_adress() {
+	echo -n $(field 1) '\\\\ '
+	[ ! -z $(field 2) ] && render_co
+	echo -n $(field 3) '\\\\ '
+	echo -n $(field 4) $(field 5) '\\\\ '
+	echo Sweden
+}
+
 mkdir -p out
 
 IFS="
@@ -17,14 +29,8 @@ num=0
 for line in $(./kallelse.pl | iconv -f iso8859-1 -t utf-8); do
 	name=/tmp/out/${MALL}_${num}.tex
 	cp /tmp/mallar/${MALL}.tex $name
-	sed "s/NAMN/$(field 1)/" -i $name
-	if [ ! -z $(field 2) ]; then
-		sed "s/ADRESS/$(echo $line | awk -F'|' '{print "$3\n~~~~~~~~~ c/o " $2}')/" -i $name
-	else
-		sed "s/ADRESS/$(field 3)/" -i $name
-	fi
-	sed "s/POSTNUMMER/$(field 4)/" -i $name
-	sed "s/ORT/$(field 5)/" -i $name
+
+	sed "s/FULLNAMEANDADRESS/$(render_adress)/" -i $name
 
 	echo "Generated $name"
 
