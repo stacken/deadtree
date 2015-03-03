@@ -2,7 +2,7 @@
 use Time::Piece;
 
 my $t = Time::Piece->new();
-$memyear=$t->year - 2;
+$memyear=$t->year - 1;
 
 $fingerfile="/tmp/out/finger.txt";
 open(BET,$fingerfile) || die;
