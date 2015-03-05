@@ -8,6 +8,13 @@ pdf: clean build copy
 build:
 	docker build -t deadtree .
 
+debug:
+	docker run -ti \
+		-v $$PWD/out:/tmp/out \
+		-v $$PWD/mallar:/tmp/mallar \
+		-e MALL=$$MALL deadtree \
+		bash
+
 copy:
 	mkdir -p out
 	rm -f out/finger.txt
