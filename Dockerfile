@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
 RUN apt-get update && apt-get install -y texlive-full
-RUN apt-get install -y make pdftk
+RUN apt-get install -y make pdftk links
 
 ADD kallelse.bash /tmp/kallelse.bash
 ADD kallelse.pl /tmp/kallelse.pl
