@@ -1,7 +1,8 @@
 #!/bin/bash
 
 if [ -z $1 ]; then
-	echo "usage: $0 mallfil.tex"
+	echo "usage: $0 mallfil"
+	echo "If this was called from make, use 'MALL=mallfil' make ..."
 	exit 1
 fi
 

@@ -1,8 +1,9 @@
-run: clean build copy
+pdf: clean build copy
 	docker run -ti \
 		-v $$PWD/out:/tmp/out \
 		-v $$PWD/mallar:/tmp/mallar \
-		-e MALL=$$MALL deadtree
+		-e MALL=$$MALL deadtree \
+		make gen
 
 build:
 	docker build -t deadtree .

@@ -10,4 +10,3 @@ ADD Makefile /tmp/Makefile
 RUN mkdir /tmp/out && mkdir /tmp/Private
 
 WORKDIR /tmp
-CMD make gen
