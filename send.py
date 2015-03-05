@@ -95,7 +95,7 @@ elif options.finger:
     import re
     kontonu = re.compile('^[a-z_0-9]+$')
     kontosen = re.compile('^\([a-z_0-9/,]+\)$')
-    for line in fileinput.input('/afs/stacken.kth.se/home/stacken/Private/finger.txt',
+    for line in fileinput.input('out/finger.txt',
                                 openhook=fileinput.hook_encoded('iso-8859-1')):
         fields = line.rstrip().split(';')
         ( efternamn, fornamn, sortering, titel, c_o, 
