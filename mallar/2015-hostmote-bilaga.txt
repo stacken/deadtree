@@ -1,0 +1,20 @@
+Motion om stadeändring: kallelser
+
+Undertecknad föreslår att Pull request #1, Kallelser per epost[1] mergas till föreningens stadgar.
+
+   @@ -77,8 +77,8 @@ eller minst tio medlemmar.
+
+    Kallelse, med motioner, till föreningens möten distribueras till
+    samtliga medlemmar minst fjorton dagar i förväg.
+   -Distribution kan ske på elektronisk väg till de medlemmar som så
+   -medgivit.
+   +Distribution sker normalt med epost.
+   +Styrelsen kan besluta om alternativ distribution efter ansökan från medlem.
+
+    ### 12. Röstning
+
+De flesta av föreningens medlemmar har redan nu kallelser per epost. De som glömt att säga till om kallelser per epost behöver inte göra något. De som eventuellt även fortsättningsvis vill ha kallelser per papperspost bör ansöka om det.
+
+Undertecknat: Rasmus Kaj, Stellan Lagerström
+
+[1] https://github.com/stacken/formalia/pull/1
