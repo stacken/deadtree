@@ -1,0 +1,66 @@
+\documentclass[fontsize=11pt,enlargefirstpage,firstfoot=false,a4paper,pagenumber=no]{scrlttr2}
+
+\usepackage[english]{babel}
+\usepackage[english]{isodate}
+\usepackage{multicol}
+
+% font and input setup
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{datetime}
+\renewcommand{\dateseparator}{-}
+\newcommand{\todayiso}{\the\year \dateseparator \twodigit\month \dateseparator \twodigit\day}
+
+\setkomavar{date}{\todayiso}
+\setkomavar{signature}{Datorföreningen Stackens styrelse, genom Stefan Berggren}
+
+\let\raggedsignature=\raggedright
+
+\makeatletter
+\@setplength{toaddrvpos}{30mm}
+\@setplength{toaddrhpos}{130mm}
+
+% The space to sign my name
+\@setplength{sigbeforevskip}{10mm}
+\makeatother
+
+
+\setkomavar{subject}{Kallelse till Stackens vårmöte}
+
+\begin{document} 
+\begin{letter}{FULLNAMEANDADRESS}
+
+\opening{Härmed kallas Stackens medlemmar till Stackens vårmöte 2016, torsdagen den 18:e februari klockan 19.30 på Kungliga Tekniska Högskolan, sal Q24.}
+
+Var god betala din medlemsavgift om den inte redan är inbetald (eller du är hedersmedlem). Om du betalar den i tid (inkommen innan vårmötet) har du rätt att rösta på vårmötet. För studerande och andra med ont om pengar är avgiften 116 kronor, för övriga är den 216 kronor.
+
+Medlemsavgiften betalas till PG 433 01 15-9, Datorföreningen Stacken. Glöm inte att ange namn och username - samtligas, om du betalar för flera personer. Eventuella frågor kan ställas till styrelsen@stacken.kth.se
+
+~\\
+Förslag till dagordning:
+
+\begin{multicols}{2}
+\begin{enumerate}
+	\itemsep0em
+	\item  Mötets öppnande
+	\item  Val av mötesordförande
+	\item  Val av mötessekreterare
+	\item  Frågan om mötets stadgeenliga utlysande
+	\item  Frågan om dagordningens godkännande
+	\item  Val av justeringsmän
+	\item  Tillkännagivande av röstlängd
+	\item  Verksamhetsberättelse
+	\item  Balansräkning
+	\item  Revisionsberättelse
+	\item  Ansvarsfrihet för 2015 års styrelse
+	\item  Övriga frågor
+	\item  Mötets avslutande
+\end{enumerate}
+\end{multicols}
+
+\closing{}
+\enlargethispage{3\baselineskip}
+
+\end{letter}
+\end{document}
