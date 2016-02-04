@@ -8,31 +8,31 @@ import fileinput
 import datetime
 
 import sys
-#print "stdout:",sys.stdout.encoding,"default:",sys.getdefaultencoding()
+
 if not sys.stdout.encoding:
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
 
 def mkmsg(filename, subject, fromname, fromaddr, toname, toaddrs,
-          smtp, reply_to = None, outcs = 'iso-8859-1'):
-    
+          smtp, reply_to = None, outcs = 'iso-8859-1', pos=0):
+
     f = codecs.open(filename, mode='r', encoding='utf-8')
     msg = MIMEText(f.read().encode(outcs), 'plain', outcs)
     f.close()
-    
+
     msg['Subject'] = Header(subject.decode('utf-8').encode(outcs), outcs)
     msg['From'] = (Header(fromname.encode(outcs), outcs).__str__()
                    + fromaddr)
     msg['To'] = (Header(toname.encode(outcs), outcs).__str__()
                  + ' ' + ', '.join(toaddrs))
-    
+
     if reply_to:
         msg['Reply-to'] = reply_to
-        
+
     if smtp:
-        print "Sending to " + msg['To']
+        print "[" + pos + "] Sending to " + msg['To']
         smtp.sendmail(fromaddr, toaddrs, msg.as_string())
     else:
-        print "Not sending to " + msg['To']
+        print "[" + pos + "] Not sending to " + msg['To']
 
 from optparse import OptionParser
 opt = OptionParser(usage='usage: %prog [options] msgfile')
@@ -48,6 +48,8 @@ opt.add_option('--reply-to', dest='reply_to', metavar='ADDR',
                help='Address for a Reply-to header')
 opt.add_option('--from-email', dest='from_email', metavar='EMAIL', help='Your E-mail adress')
 opt.add_option('--from-name', dest='from_name', metavar='NAME', help='Your Full Name')
+opt.add_option('--resume-from', dest='resume_from', metavar='NUMBER',
+               help='Resume from this position (only for finger)', default=0)
 (options, msgfile) = opt.parse_args()
 
 if not options.subject:
@@ -108,10 +110,10 @@ elif options.finger:
             continue
 
         flags = re.split(',\s*', status)
-        
+
         if betalt: betalt = int(betalt)
         else:      betalt = 0
-            
+
         if ((betalt < datetime.datetime.now().year - 3)
             and not ('Ny' in flags)
             and not ('Hedersmedlem' in flags)):
@@ -123,31 +125,35 @@ elif options.finger:
                 addrs = addrs + ['<' + anvandarnamn + '@stacken.kth.se>']
             elif not kontosen.match(anvandarnamn):
                 print u'!!! Strange account name: ' + anvandarnamn
-                
+
         if mailadress: addrs = addrs + ['<' + mailadress + '>']
-        
+
         if (uttradesdatum
             or ('Slutat' in flags)
             or ('Utesluten' in flags)
             or ('Ej medlem' in flags)) :
             print u'!!! %s %s lämnade stacken %s (%s)' % (fornamn, efternamn, uttradesdatum, status)
             continue
-        
+
         if len(addrs) < 1:
             print u"!!! No address found for %s %s" % (fornamn, efternamn)
             continue
-        
+
+        if (n < int(options.resume_from)):
+            continue
+
         msg = mkmsg(msgfile[0], subject=options.subject,
                     fromname=u'Datorföreningen Stacken via {0}'.format(options.from_name),
                     fromaddr='<{0}>'.format(options.from_email),
                     toname = u'%s %s' % (fornamn, efternamn),
                     toaddrs = addrs,
                     reply_to = options.reply_to,
-                    smtp = server)
+                    smtp = server,
+                    pos=n)
         n = n + 1
-        
+
     print 'There was %s people to send to.' % n
-    
+
 else:
     print 'No addresses.  Sending to myself for debugging.'
     msg = mkmsg(msgfile[0], subject=options.subject,
@@ -157,6 +163,6 @@ else:
                 toaddrs  = ['<{0}>'.format(options.from_email)],
                 reply_to = options.reply_to,
                 smtp = server)
-    
+
 if server:
     server.quit()
