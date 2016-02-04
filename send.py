@@ -48,6 +48,8 @@ opt.add_option('--reply-to', dest='reply_to', metavar='ADDR',
                help='Address for a Reply-to header')
 opt.add_option('--from-email', dest='from_email', metavar='EMAIL', help='Your E-mail adress')
 opt.add_option('--from-name', dest='from_name', metavar='NAME', help='Your Full Name')
+opt.add_option('--resume-from', dest='resume_from', metavar='NUMBER',
+               help='Resume from this position (only for finger)', default=0)
 (options, msgfile) = opt.parse_args()
 
 if not options.subject:
@@ -135,6 +137,9 @@ elif options.finger:
 
         if len(addrs) < 1:
             print u"!!! No address found for %s %s" % (fornamn, efternamn)
+            continue
+
+        if (n < int(options.resume_from)):
             continue
 
         msg = mkmsg(msgfile[0], subject=options.subject,
