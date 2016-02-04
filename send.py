@@ -8,26 +8,26 @@ import fileinput
 import datetime
 
 import sys
-#print "stdout:",sys.stdout.encoding,"default:",sys.getdefaultencoding()
+
 if not sys.stdout.encoding:
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
 
 def mkmsg(filename, subject, fromname, fromaddr, toname, toaddrs,
           smtp, reply_to = None, outcs = 'iso-8859-1'):
-    
+
     f = codecs.open(filename, mode='r', encoding='utf-8')
     msg = MIMEText(f.read().encode(outcs), 'plain', outcs)
     f.close()
-    
+
     msg['Subject'] = Header(subject.decode('utf-8').encode(outcs), outcs)
     msg['From'] = (Header(fromname.encode(outcs), outcs).__str__()
                    + fromaddr)
     msg['To'] = (Header(toname.encode(outcs), outcs).__str__()
                  + ' ' + ', '.join(toaddrs))
-    
+
     if reply_to:
         msg['Reply-to'] = reply_to
-        
+
     if smtp:
         print "Sending to " + msg['To']
         smtp.sendmail(fromaddr, toaddrs, msg.as_string())
@@ -108,10 +108,10 @@ elif options.finger:
             continue
 
         flags = re.split(',\s*', status)
-        
+
         if betalt: betalt = int(betalt)
         else:      betalt = 0
-            
+
         if ((betalt < datetime.datetime.now().year - 3)
             and not ('Ny' in flags)
             and not ('Hedersmedlem' in flags)):
@@ -123,20 +123,20 @@ elif options.finger:
                 addrs = addrs + ['<' + anvandarnamn + '@stacken.kth.se>']
             elif not kontosen.match(anvandarnamn):
                 print u'!!! Strange account name: ' + anvandarnamn
-                
+
         if mailadress: addrs = addrs + ['<' + mailadress + '>']
-        
+
         if (uttradesdatum
             or ('Slutat' in flags)
             or ('Utesluten' in flags)
             or ('Ej medlem' in flags)) :
             print u'!!! %s %s lämnade stacken %s (%s)' % (fornamn, efternamn, uttradesdatum, status)
             continue
-        
+
         if len(addrs) < 1:
             print u"!!! No address found for %s %s" % (fornamn, efternamn)
             continue
-        
+
         msg = mkmsg(msgfile[0], subject=options.subject,
                     fromname=u'Datorföreningen Stacken via {0}'.format(options.from_name),
                     fromaddr='<{0}>'.format(options.from_email),
@@ -145,9 +145,9 @@ elif options.finger:
                     reply_to = options.reply_to,
                     smtp = server)
         n = n + 1
-        
+
     print 'There was %s people to send to.' % n
-    
+
 else:
     print 'No addresses.  Sending to myself for debugging.'
     msg = mkmsg(msgfile[0], subject=options.subject,
@@ -157,6 +157,6 @@ else:
                 toaddrs  = ['<{0}>'.format(options.from_email)],
                 reply_to = options.reply_to,
                 smtp = server)
-    
+
 if server:
     server.quit()
