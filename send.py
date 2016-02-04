@@ -29,10 +29,10 @@ def mkmsg(filename, subject, fromname, fromaddr, toname, toaddrs,
         msg['Reply-to'] = reply_to
 
     if smtp:
-        print "[" + pos + "] Sending to " + msg['To']
+        print "[{}] Sending to {}".format(pos, msg['To'])
         smtp.sendmail(fromaddr, toaddrs, msg.as_string())
     else:
-        print "[" + pos + "] Not sending to " + msg['To']
+        print "[{}] Not sending to {}".format(pos, msg['To'])
 
 from optparse import OptionParser
 opt = OptionParser(usage='usage: %prog [options] msgfile')
