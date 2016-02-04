@@ -13,7 +13,7 @@ if not sys.stdout.encoding:
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
 
 def mkmsg(filename, subject, fromname, fromaddr, toname, toaddrs,
-          smtp, reply_to = None, outcs = 'iso-8859-1'):
+          smtp, reply_to = None, outcs = 'iso-8859-1', pos=0):
 
     f = codecs.open(filename, mode='r', encoding='utf-8')
     msg = MIMEText(f.read().encode(outcs), 'plain', outcs)
@@ -29,10 +29,10 @@ def mkmsg(filename, subject, fromname, fromaddr, toname, toaddrs,
         msg['Reply-to'] = reply_to
 
     if smtp:
-        print "Sending to " + msg['To']
+        print "[" + pos + "] Sending to " + msg['To']
         smtp.sendmail(fromaddr, toaddrs, msg.as_string())
     else:
-        print "Not sending to " + msg['To']
+        print "[" + pos + "] Not sending to " + msg['To']
 
 from optparse import OptionParser
 opt = OptionParser(usage='usage: %prog [options] msgfile')
@@ -148,7 +148,8 @@ elif options.finger:
                     toname = u'%s %s' % (fornamn, efternamn),
                     toaddrs = addrs,
                     reply_to = options.reply_to,
-                    smtp = server)
+                    smtp = server,
+                    pos=n)
         n = n + 1
 
     print 'There was %s people to send to.' % n
