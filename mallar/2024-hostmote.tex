@@ -1,0 +1,72 @@
+\documentclass[fontsize=11pt,enlargefirstpage,firstfoot=false,a4paper,pagenumber=no]{scrlttr2}
+
+\usepackage[english]{babel}
+\usepackage[english]{isodate}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+% font and input setup
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{datetime}
+\pagestyle{fancy}
+\renewcommand{\dateseparator}{-}
+\newcommand{\todayiso}{\the\year \dateseparator \twodigit\month \dateseparator \twodigit\day}
+
+\setkomavar{date}{\todayiso}
+\setkomavar{signature}{Datorföreningen Stackens styrelse, genom Marcus Dicander}
+
+%\let\raggedsignature=\raggedright
+
+%\makeatletter
+%\setplength{toaddrvpos}{30mm}
+%\setplength{toaddrhpos}{130mm}
+
+% The space to sign my name
+%\setplength{sigbeforevskip}{10mm}
+%\makeatother
+
+
+\setkomavar{subject}{Kallelse till Stackens höstmöte}
+
+\begin{document} 
+\begin{letter}{Till Stackens medlemmar}
+
+\opening{Härmed kallas du som är medlem i Datorföreningen Stacken till höstmöte, torsdag 14:e november 2024 kl. 19.30 i Q26\newline{}
+\url{https://www.kth.se/places/room/id/7d8520f2-99cf-4ab9-ba91-98f66e573154}.}
+
+Var god betala din medlemsavgift om den inte redan är inbetald (eller du är hedersmedlem). Om du betalar den i tid (inkommen innan höstmötet) 
+har du rätt att rösta på mötet. För arbetande är avgiften 224 kronor, för övriga är den 124 kronor.
+
+%~\\
+Förslag till dagordning:
+
+%\begin{multicols}{1}
+\begin{enumerate}
+	\itemsep0em
+	\item  Mötets öppnande
+	\item  Val av mötesordförande
+	\item  Frågan om mötet är stadgeenligt utlyst
+	\item  Val av justeringsmän tillika rösträknare
+	\item  Val av mötessekreterare
+	\item  Frågan om dagordningens godkännande
+	\item  Tillkännagivande av röstlängd
+	\item  Val av styrelse
+	\item  Fastställande av firmatecknare
+	\item  Val av revisorer
+	\item  Val av valberedning
+	\item  Fastställande av årsavgift
+	\item  Fastställande av budget
+	\item  Övriga frågor
+	\item  Mötets avslutande
+\end{enumerate}
+%\end{multicols}
+
+\closing{}
+%\enlargethispage{3\baselineskip}
+
+\end{letter}
+\end{document}
